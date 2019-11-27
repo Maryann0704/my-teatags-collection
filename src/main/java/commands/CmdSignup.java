@@ -28,7 +28,7 @@ public class CmdSignup extends Cmd {
                     2);
             try {
                 if (dao.user.create(user))
-                    return Actions.PROFILE.command;
+                    return Actions.LOGIN.command;
             }
             catch (SQLException e) {
                 throw new SiteException("This login is busy");
