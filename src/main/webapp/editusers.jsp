@@ -16,17 +16,18 @@
     <c:forEach items="${AllUsers}" var="user">
         <form class="form-horizontal-${user.id}" action="do?command=EditUsers" method="post">
             <div class="row">
-                    <input id="id" name="id" type="hidden" placeholder="" class="form-control input-md"
-                       required="" value="${user.id}">
+                <input id="id" name="id" type="hidden" class="form-control input-md" value="${user.id}">
 
                 <div class="col-md-3">
                     <input id="login" name="login" type="text" placeholder="" class="form-control input-md"
-                           required="" value="${user.login}">
+                       value="${user.login}">
                 </div>
+
+                <input id="password" name="password" type="hidden" class="form-control input-md" value="${user.password}">
 
                 <div class="col-md-4">
                     <input id="email" name="email" type="text" placeholder="" class="form-control input-md"
-                           required="" value="${user.email}">
+                        value="${user.email}">
                 </div>
 
                 <div class="col-md-2">
