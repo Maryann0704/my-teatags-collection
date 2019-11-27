@@ -5,7 +5,7 @@
 <div class="container">
 <%@ include file="include/menu.jsp" %>
 <br>
-<h4>Все ярлычки на сайте</h4>
+<h4>Все ярлычки</h4>
 <br>
 
 <div class="row">
@@ -16,7 +16,7 @@
         <div class="col-md-2 text-center">В коллекции с</div>
         <div class="col-md-1 text-center">Номер в каталоге</div>
         <div class="col-md-1 text-center">Имя пользователя</div>
-    </div>
+</div>
 <hr>
     <c:forEach items="${teatags}" var="teatag">
         <div class="row">
@@ -33,6 +33,7 @@
     <br>
     <my:paginator count="${teatagsSize}" step="10" urlprefix="do?command=catalog&start="/>
     <br>
+
 </div>
 </body>
 </html>
