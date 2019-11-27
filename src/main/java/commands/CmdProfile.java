@@ -1,6 +1,7 @@
 package commands;
 
 import dao.Dao;
+import exceptions.SiteException;
 import pojo.Teatag;
 import pojo.TeatagString;
 import pojo.User;
@@ -30,12 +31,28 @@ public class CmdProfile extends Cmd {
 
         if (FormHelper.isPost(req)) {
 
-            if (FormHelper.pressedButton(req, "updateAc")) {
+            if (FormHelper.pressedButton(req, "updateLogin")) {
                 String login = Validator.getString(req, "login", Patterns.LOGIN);
-                String password = md5Hex(Validator.getString(req, "password", Patterns.PASSWORD));
-                String email = Validator.getString(req, "email", Patterns.EMAIL);
+                List<User> users = dao.user.getAll();
+                for (User user1 : users) {
+                    if (user1.getLogin().equals(login)) {
+                        throw new SiteException("This login is busy");
+                    }
+                }
                 user.setLogin(login);
+                dao.user.update(user);
+                return this;
+            }
+
+            if (FormHelper.pressedButton(req, "updatePass")) {
+                String password = md5Hex(Validator.getString(req, "password", Patterns.PASSWORD));
                 user.setPassword(password);
+                dao.user.update(user);
+                return this;
+            }
+
+            if (FormHelper.pressedButton(req, "updateMail")) {
+                String email = Validator.getString(req, "email", Patterns.EMAIL);
                 user.setEmail(email);
                 dao.user.update(user);
                 return this;
@@ -59,9 +76,9 @@ public class CmdProfile extends Cmd {
             }
         }
 
-        List<TeatagString> usersTeatags = Dao.getDao().teatag.getSelected(user.getId());
-        req.setAttribute("usersTeatagsSize", usersTeatags.size());
-        req.setAttribute("usersTeatags", usersTeatags);
+        List<TeatagString> userTeatags = Dao.getDao().teatag.getSelected(user.getId());
+        req.setAttribute("userTeatagsSize", userTeatags.size());
+        req.setAttribute("userTeatags", userTeatags);
 
         return null;
     }
